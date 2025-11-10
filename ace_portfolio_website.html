@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ace Ha — Humanoid Robotics • Actuator & Mechatronics Design</title>
+  <meta name="description" content="Mechatronics/Robotics portfolio of Ace Ha — projects, case studies, skills, and contact." />
+  <style>
+  /* ===== Humanoid Light — clean, white, sanctuary‑like ===== */
+  :root{
+    --bg:#ffffff;         /* pure white canvas */
+    --ink:#0b0f1a;        /* near‑black text */
+    --muted:#5d6b7c;      /* secondary */
+    --edge:#e8edf5;       /* soft divider */
+    --card:#ffffff;       /* cards */
+    --accent:#5865F2;     /* cobalt blue accent */
+    --accent2:#7a5cff;    /* indigo tint for subtle gradients */
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial;
+    background:var(--bg);
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Layout */
+  .container{max-width:1280px;margin:0 auto;padding:0 24px}
+  header{position:sticky;top:0;z-index:40;background:#ffffffcc;backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--edge)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .nav a.brand{font-weight:800;letter-spacing:.2px;color:#0b0f1a}
+  .nav .links{display:flex;gap:22px}
+
+  /* Sections */
+  .section{padding:68px 0;border-top:1px solid var(--edge)}
+  .section h2{margin:0 0 12px;font-size:28px;font-weight:800}
+  .section p.muted{color:var(--muted)}
+
+  /* Hero */
+  .hero{padding:92px 0 36px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}
+  .hero h1{font-size:48px;line-height:1.05;margin:12px 0 8px;font-weight:850;letter-spacing:-0.3px}
+  .hero p{color:var(--muted);margin:0 0 18px;font-size:18px}
+  .hero .lede{font-size:18px}
+  .hero-image{position:relative;border-radius:18px;overflow:hidden}
+  /* Hero portrait option */
+  .hero-image .frame{width:100%;aspect-ratio:16/10;background:#f3f5f9;border:1px solid var(--edge);border-radius:18px;overflow:hidden;display:grid;place-items:center;color:#8390a3}
+  .hero-image .frame.portrait{aspect-ratio:3/4}
+  .hero-image .frame img{width:100%;height:100%;object-fit:contain;object-position:center}
+
+  .chip{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#2a313c;background:#f4f7ff;border:1px solid var(--edge);padding:6px 10px;border-radius:999px}
+  .pill{display:inline-block;font-size:12px;color:#2a313c;background:#f6f8fb;border:1px solid var(--edge);padding:6px 10px;border-radius:999px}
+
+  /* Cards (very light) */
+  .card{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px;box-shadow:0 2px 14px rgba(18,26,45,.04)}
+  .card h3{margin:0 0 8px;font-size:18px}
+  .card p{margin:6px 0;color:var(--muted);font-size:14px}
+
+  /* Grids */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  #projects .grid-3{grid-template-columns:1fr;gap:28px}
+
+  /* KPI strip (Sanctuary style: tiny caption + big number) */
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+  .kpi{padding:8px 0}
+  .kpi .cap{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7b8898;white-space:nowrap}
+  .kpi .num{font-size:34px;font-weight:850;color:#0b0f1a;line-height:1.05;display:flex;align-items:baseline;gap:6px;font-feature-settings:"tnum" 1}
+  .kpi .unit{font-size:20px;color:#7b8898;margin-left:2px}
+  .kpi .sub{font-size:13px;color:#7b8898}
+
+  /* Project tags */
+  .tagrow{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{border:1px solid var(--edge);color:#2a3a58;padding:4px 8px;border-radius:999px;font-size:12px;background:#f6f8ff}
+
+  /* Case-study toggles */
+  details.mini{margin-top:8px;border-top:1px solid var(--edge);padding-top:8px}
+  details.mini summary{cursor:pointer;color:#2a3a58;font-weight:700}
+  details.mini ul{margin:8px 0 0 16px;color:var(--muted);font-size:14px}
+
+  /* Project thumbnails */
+  .thumb-img{width:100%;aspect-ratio:4/3;border-radius:12px;border:1px solid var(--edge);object-fit:contain;background:#f6f8ff}
+
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;color:#fff;border:1px solid #5865F2;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:800;background:#0b0f1a}
+  .btn:hover{background:#161a25}
+  .btn.primary{background:linear-gradient(180deg,#7a86ff,#5865F2);border-color:#5865F2}
+  .btn.primary:hover{background:linear-gradient(180deg,#8a94ff,#6a76ff)}
+
+  footer{padding:36px 0 80px;text-align:center;color:#7b8898}
+
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr}
+    .grid-3,.kpis{grid-template-columns:1fr}
+  }
+
+  /* two-column list for technical expertise */
+  .cols-2 ul{columns:2;column-gap:24px;margin:8px 0;padding-left:18px}
+  @media(max-width:980px){.cols-2 ul{columns:1}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#top" class="brand">Ace Ha</a>
+      <nav class="links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <span class="chip">Robot Mechanisms • Motion Systems • Actuators &amp; Gearboxes •  Test Jigs &amp; Fixtures</span>
+        <h1>Mechatronic & Mechanical design for actuators, gearboxes, joints, serial/parallel robots, test jigs</h1>
+        <p class="lede">As a mechatronics engineer, I’m passionate about designing robust motion hardware: motor &amp; actuator assemblies, precision mechanisms (robot joints, serial/parallel robots), and production-ready designs with clear load paths, solid GD&amp;T/tolerance stacks, bearing/fastener selection, and DFM/DFA. I also design custom test jigs and verification fixtures for repeatable validation and automated bring-up.</p>
+        <div class="row" style="margin:14px 0 8px">
+          <a class="btn" href="#projects">See Projects</a>
+          <a class="btn primary" href="#contact">Contact</a>
+          <span class="pill">Based in Burnaby, BC</span>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="cap">Backlash</div><div class="num"><span class="val">≤0.05</span><span class="unit">mm</span></div><div class="sub">indicator rig</div></div>
+          <div class="kpi"><div class="cap">Repeatability</div><div class="num"><span class="val">±0.05</span><span class="unit">mm</span></div><div class="sub">linear axis benchmark</div></div>
+          <div class="kpi"><div class="cap">Assembly Time Reduction</div><div class="num"><span class="val">≥30</span><span class="unit">%</span></div><div class="sub">fixture redesign</div></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="frame portrait">
+          <img src="Ace_Profile_.jpg" alt="Ace Ha with ABB robot and lab equipment">
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="row" style="justify-content:space-between;align-items:baseline">
+        <h2>Motion Hardware & Robotics Projects</h2>
+        <span class="pill">Target roles: Mechatronics • Robotics R&amp;D • Mechanical Design</span>
+      </div>
+      <p class="muted">Curated academic and personal builds demonstrating motion hardware, PLC control, and CAD—from concept to validated prototypes.</p>
+
+      <div class="grid-3">
+        <!-- Cartesian Robot -->
+        <div class="card">
+          <img class="thumb-img" src="Cartesian_Project.jpg" alt="Cartesian core XY gantry render">
+          <h3>Cartesian Robot (Core Gantry)</h3>
+          <p>Designed and assembled a 3‑axis belt‑driven Cartesian platform using 20×20 V‑slot rails, GT2 belts/idlers, V‑wheels with eccentric spacers, and NEMA‑23 drives. Focused on belt routing, preload, and interference‑free fastener layouts for smooth, precise travel.</p>
+          <div class="tagrow"><span class="tag">V‑slot</span><span class="tag">GT2 • 20T</span><span class="tag">NEMA‑23</span><span class="tag">Mechanisms</span></div>
+          <details class="mini"><summary>Case study</summary>
+            <ul>
+              <li><strong>Problem:</strong> Build a low‑cost, rigid XY‑gantry with minimal backlash for lab demos.</li>
+              <li><strong>Role:</strong> Mechanical design &amp; build, alignment, verification.</li>
+              <li><strong>Approach:</strong> Clear load paths, idler alignment, belt tension jigs, indicator checks.</li>
+              <li><strong>Results:</strong> Backlash ≤0.05 mm; repeatability ±0.05 mm (indicator rig).</li>
+            </ul>
+          </details>
+        </div>
+
+        <!-- Tensile Test Machine -->
+        <div class="card">
+          <img class="thumb-img" src="TensileTester_Project.jpg" alt="Tensile tester Instron retrofit">
+          <h3>Tensile Test Machine</h3>
+          <p>Developed a tensile‑testing machine using TMS320 and Raspberry Pi 4. Built a Python HMI for data capture and real‑time plotting; integrated PI control and safety interlocks.</p>
+          <div class="tagrow"><span class="tag">TMS320</span><span class="tag">Python GUI</span><span class="tag">PI control</span></div>
+          <details class="mini"><summary>Case study</summary>
+            <ul>
+              <li><strong>Problem:</strong> Low‑cost tensile tester with automated logging.</li>
+              <li><strong>Role:</strong> Controls &amp; electronics integration, HMI, test plan.</li>
+              <li><strong>Approach:</strong> Load‑cell signal chain, PI loop, CSV/JSON logging, pass/fail.</li>
+              <li><strong>Results:</strong> Stable control with calibrated load curve; reproducible runs.</li>
+            </ul>
+          </details>
+        </div>
+
+        <!-- PLC Elevator -->
+        <div class="card">
+          <img class="thumb-img" src="elevator_project.jpg" alt="Allen-Bradley PLC elevator panel">
+          <h3>Elevator Automation with Allen‑Bradley PLC</h3>
+          <p>Implemented elevator sequencing, door logic, emergency stop, multi‑call handling, and statistics using Rockwell PLCs. Delivered state machine, AOIs, UDTs, and HMI.</p>
+          <div class="tagrow"><span class="tag">PLC</span><span class="tag">State machine</span><span class="tag">HMI</span></div>
+          <details class="mini"><summary>Case study</summary>
+            <ul>
+              <li><strong>Problem:</strong> Robust multi‑floor logic with safety.</li>
+              <li><strong>Role:</strong> Ladder design, HMI, I/O checkout.</li>
+              <li><strong>Approach:</strong> AOI/UDT templates, interlocks, simulation tests.</li>
+              <li><strong>Results:</strong> Reliable cycle with debounce &amp; emergency handling.</li>
+            </ul>
+          </details>
+        </div>
+
+        <!-- DC Motor Drive -->
+        <div class="card">
+          <img class="thumb-img" src="Voltageregulator&amp;motordriver_project.jpg" alt="H-bridge motor driver and regulator boards">
+          <h3>DC Motor Drive &amp; Voltage Regulator</h3>
+          <p>Designed and built a BJT H‑bridge with electrical braking and a linear adjustable regulator. Verified component limits and documented test procedures.</p>
+          <div class="tagrow"><span class="tag">Power electronics</span><span class="tag">H‑bridge</span></div>
+          <details class="mini"><summary>Case study</summary>
+            <ul>
+              <li><strong>Problem:</strong> Simple, serviceable drive for lab demos.</li>
+              <li><strong>Role:</strong> Schematic, layout, build, validation.</li>
+              <li><strong>Approach:</strong> Thermal derating, snubbers, braking path.</li>
+              <li><strong>Results:</strong> Safe switching; documented SOPs.</li>
+            </ul>
+          </details>
+        </div>
+
+        <!-- Robot Gripper -->
+        <div class="card">
+          <img class="thumb-img" src="GrippeDesign_projects.png" alt="Robot gripper CAD and 3D print">
+          <h3>Robot Gripper Design</h3>
+          <p>Designed and prototyped an ABB‑style robot gripper in SolidWorks with 3D‑printed parts. Added laser alignment feature; ran static deflection analysis.</p>
+          <div class="tagrow"><span class="tag">SolidWorks</span><span class="tag">Prototype</span></div>
+          <details class="mini"><summary>Case study</summary>
+            <ul>
+              <li><strong>Problem:</strong> Lightweight, printable gripper for demos.</li>
+              <li><strong>Role:</strong> CAD, fabrication, test.</li>
+              <li><strong>Approach:</strong> Linkage study, moment loads, quick‑release fingers.</li>
+              <li><strong>Results:</strong> Reliable pick/place; simple field service.</li>
+            </ul>
+          </details>
+        </div>
+
+        <!-- Delta Robot -->
+        <div class="card">
+          <img class="thumb-img" src="DeltaRobot_Project.png" alt="Delta robot kinematics diagram">
+          <h3>Delta Robot</h3>
+          <p>Designed a delta robot integrating forward/inverse kinematics, stepper control, and OpenCV classification on Raspberry Pi. Documented build and tuning.</p>
+          <div class="tagrow"><span class="tag">Kinematics</span><span class="tag">OpenCV</span></div>
+          <details class="mini"><summary>Case study</summary>
+            <ul>
+              <li><strong>Problem:</strong> High‑speed pick‑and‑place concept.</li>
+              <li><strong>Role:</strong> Mechanisms, control software, vision pipeline.</li>
+              <li><strong>Approach:</strong> FK/IK library, image thresholding, stepper timing.</li>
+              <li><strong>Results:</strong> Smooth trajectories; accurate picks on test rig.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2>Robotics Operation Experience</h2>
+      <p class="muted">Hands-on operation across multiple platforms. Each tile includes a quick overview and a photo.</p>
+      <div class="grid-3">
+        <div class="card">
+          <img src="ABB_Robot.jpg" alt="ABB industrial robot" style="width:100%;border:1px solid var(--edge);border-radius:12px;aspect-ratio:16/10;object-fit:cover">
+          <h3 style="margin-top:8px">ABB Industrial Robot</h3>
+          <p>Teach-pendant operation, safe modes, frame/tool setup, basic path edits, and I/O checks.</p>
+          <div class="tagrow"><span class="pill">ABB</span><span class="pill">Teach pendant</span><span class="pill">Safety</span></div>
+        </div>
+        <div class="card">
+          <img src="Cartesian_Robot.jpg" alt="Cartesian gantry" style="width:100%;border:1px solid var(--edge);border-radius:12px;aspect-ratio:16/10;object-fit:cover">
+          <h3 style="margin-top:8px">Cartesian Gantry</h3>
+          <p>Belt routing/tensioning, squaring, homing &amp; limits, indicator-based repeatability checks.</p>
+          <div class="tagrow"><span class="pill">Cartesian</span><span class="pill">Homing &amp; limits</span><span class="pill">Repeatability</span></div>
+        </div>
+        <div class="card">
+          <img src="HbotGamtry.jpg" alt="H-bot/CoreXY" style="width:100%;border:1px solid var(--edge);border-radius:12px;aspect-ratio:16/10;object-fit:cover">
+          <h3 style="margin-top:8px">H-bot/CoreXY</h3>
+          <p>Belt sync &amp; equal-path routing, frame squaring, backlash minimization with eccentric preload.</p>
+          <div class="tagrow"><span class="pill">H-bot/CoreXY</span><span class="pill">Belt tuning</span><span class="pill">Squaring</span></div>
+        </div>
+        <div class="card">
+          <img src="Delta_Robot.jpg" alt="Delta robot" style="width:100%;border:1px solid var(--edge);border-radius:12px;aspect-ratio:16/10;object-fit:cover">
+          <h3 style="margin-top:8px">Delta Robot</h3>
+          <p>Forward/inverse kinematics validation, drive configuration, pick-and-place demo.</p>
+          <div class="tagrow"><span class="pill">Delta</span><span class="pill">Kinematics</span><span class="pill">Vision</span></div>
+        </div>
+        <div class="card">
+          <img src="SCARA_Robot.jpg" alt="SCARA robot" style="width:100%;border:1px solid var(--edge);border-radius:12px;aspect-ratio:16/10;object-fit:cover">
+          <h3 style="margin-top:8px">SCARA Robot</h3>
+          <p>Tool/frame configuration, homing &amp; I/O checks, simple path tuning for cycle-time demos.</p>
+          <div class="tagrow"><span class="pill">SCARA</span><span class="pill">Tool &amp; frame</span><span class="pill">Cycle time</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Mechanical</h3>
+          <ul>
+            <li>Precision mechanisms • bearings &amp; fits • bolt preload • joint design</li>
+            <li>Tolerance stack‑ups • GD&amp;T • DFM/DFA • jigs &amp; fixtures</li>
+            <li>Rotating hardware: shafts/gearboxes, rotor/stator inspection basics</li>
+            <li>Manufacturing: turning, milling, drilling, grinding; casting/plastics/composites; forming; welding/brazing; CNC</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Electronics, Firmware &amp; Test</h3>
+          <ul>
+            <li>MCUs: MSP430 • STM32 • TMS320 • ESP8266/ESP32 • Raspberry Pi 4 • Arduino</li>
+            <li>PLCs: Siemens • Allen‑Bradley • Schneider (familiar)</li>
+            <li>Interfaces &amp; fieldbus: I²C • UART • SPI • RS485 (Modbus RTU) • RS232 • EtherCAT • safety I/O</li>
+            <li>Python for automated testing (fixtures, data logging, plots, CSV/JSON, pass/fail limits)</li>
+            <li>Signal integrity basics • EMC awareness • PCB bring‑up</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Controls, QA &amp; Ops</h3>
+          <ul>
+            <li>Motion control • PID • S‑curve profiles • kinematics • RobotStudio</li>
+            <li>Test plans • verification protocols • calibration rigs • GR&amp;R basics</li>
+            <li>ISO‑9001 mindset • traceability • revision control • work instructions/SOPs</li>
+            <li>Lean concepts • basic ERP (BOMs, routings, travelers)</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 style="margin-top:28px">Software &amp; Tooling</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>CAD &amp; CAE</h3>
+          <ul>
+            <li>SolidWorks (parts/assemblies/drawings)</li>
+            <li>Onshape</li>
+            <li>GD&amp;T and tolerance analysis worksheets</li>
+            <li>FEA sanity checks (SolidWorks Simulation)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Electronics &amp; Firmware</h3>
+          <ul>
+            <li>KiCad</li>
+            <li>Altium</li>
+            <li>LTspice</li>
+            <li>Code Composer Studio</li>
+            <li>STM32CubeIDE</li>
+            <li>Arduino IDE</li>
+            <li>Studio5000</li>
+            <li>TIA Portal</li>
+            <li>EcoStruxure Control Expert</li>
+            <li>RobotStudio</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Documentation &amp; Ops</h3>
+          <ul>
+            <li>Documentation &amp; tracking: Excel • Jira • Confluence</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Programming languages: C • Python • basic Assembly.</p>
+    </section>
+
+    <!-- CONTACT / RESUME -->
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>Email: <a href="mailto:haduyhung142@gmail.com">haduyhung142@gmail.com</a> • LinkedIn: <a href="https://www.linkedin.com/in/ace-ha-634661290" target="_blank" rel="noopener">linkedin.com/in/ace-ha-634661290</a></p>
+        <p id="resume"><a class="btn" id="resumeLink" href="AceHa_Resume.pdf" download target="_blank" rel="noopener">Download Resume (PDF)</a></p>
+        <p class="muted">For opportunities: <strong>Mechatronics Engineer</strong> • <strong>Mechanical Engineer</strong> • <strong>Robotics Technician</strong> • <strong>Robotics R&amp;D</strong> • <strong>Electronics Technician</strong> — On‑site/Hybrid in Greater Vancouver</p>
+      </div>
+    </section>
+
+    <hr class="divider"/>
+    <!-- Redacted public downloads to protect IP. Use the Access on Request section instead. -->
+
+    <section class="section">
+      <h2>Achievements</h2>
+      <div class="card">
+        <p><strong>Bronze Medal — BC Skills Competition (Electronics):</strong> SMD soldering, PCB design, sensor interface.</p>
+      </div>
+    </section>
+
+    <!-- ACCESS ON REQUEST -->
+    <section id="access" class="section">
+      <h2>Access on Request (Confidential Previews)</h2>
+      <div class="card">
+        <p class="muted">To prevent idea/geometry leakage, I share <strong>redacted, watermarked previews</strong> and a <strong>high‑level case study</strong> on request. Full CAD, drawings, code, and test data are only available under NDA or during interviews.</p>
+        <ul>
+          <li>What you’ll get: architecture diagrams without dimensions, subassembly photos, short demo clips, verification results, and a responsibilities/tools summary.</li>
+          <li>What’s withheld: native CAD, detailed drawings/tolerances, full BOM pricing, source code, and process IP.</li>
+        </ul>
+        <form id="accessForm" style="display:grid;gap:12px;max-width:560px;margin-top:10px">
+          <!-- Visible fields -->
+          <input name="name" placeholder="Your name" required style="padding:12px;border:1px solid var(--edge);border-radius:10px">
+          <input name="email" type="email" placeholder="Work email" required style="padding:12px;border:1px solid var(--edge);border-radius:10px">
+          <input name="company" placeholder="Company / role" style="padding:12px;border:1px solid var(--edge);border-radius:10px">
+          <textarea name="interest" rows="4" placeholder="Which project(s) would you like to review? (Cartesian robot / Delta robot / Tensile tester / PLC elevator / DC drive / Gripper)" style="padding:12px;border:1px solid var(--edge);border-radius:10px"></textarea>
+
+          <!-- Optional honeypot (kept invisible) -->
+          <input name="_honey" type="text" style="display:none">
+
+          <button class="btn primary" type="submit">Request confidential preview</button>
+          <p id="formStatus" class="muted" style="margin:4px 0 0;display:none"></p>
+          <p class="muted" style="margin:6px 0 0">If your email app doesn’t open, <a id="fallbackLink" href="#">click here</a>.</p>
+        </form>
+        <!-- Hidden diagnostics: open with ?test=1 or #debug -->
+        <details id="diagnostics" class="mini" style="display:none;margin-top:10px">
+          <summary>Diagnostics</summary>
+          <ul id="diagList"></ul>
+        </details>
+        <p class="muted" style="margin-top:10px">Prefer LinkedIn? Message me there and I’ll share a private link that expires.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="y"></span> Ace Ha — Mechatronics &amp; Robotics
+  </footer>
+
+  <script>
+  // Footer year + Request form (mailto)
+  (function(){
+    var y = document.getElementById('y');
+    if(y){ y.textContent = new Date().getFullYear(); }
+
+    var f = document.getElementById('accessForm');
+    var statusEl = document.getElementById('formStatus');
+    var fallback = document.getElementById('fallbackLink');
+
+    function showStatus(msg, ok){
+      if(!statusEl) return;
+      statusEl.style.display='block';
+      statusEl.style.color = ok===false ? '#9b2335' : '#2a7a3b';
+      statusEl.textContent = msg;
+    }
+
+    // Build a mailto URL safely (no unescaped newlines inside string literals)
+    function buildMailtoFrom(name, email, company, interest){
+      var subject = encodeURIComponent('Confidential preview request from ' + (name || 'a visitor'));
+      var lines = [
+        'Name: ' + (name || ''),
+        'Work email: ' + (email || ''),
+        'Company/Role: ' + (company || ''),
+        'Projects of interest: ' + (interest || ''),
+        '',
+        "(Generated via Ace's portfolio website)"
+      ];
+      var body = encodeURIComponent(lines.join('\n'));
+      return 'mailto:haduyhung142@gmail.com?subject=' + subject + '&body=' + body;
+    }
+
+    function buildMailto(){
+      if(!f) return 'mailto:haduyhung142@gmail.com';
+      var name = (f.elements['name'] && f.elements['name'].value || '').trim();
+      var email = (f.elements['email'] && f.elements['email'].value || '').trim();
+      var company = (f.elements['company'] && f.elements['company'].value || '').trim();
+      var interest = (f.elements['interest'] && f.elements['interest'].value || '').trim();
+      return buildMailtoFrom(name, email, company, interest);
+    }
+
+    if(f){
+      f.addEventListener('submit', function(e){
+        e.preventDefault();
+        try{
+          window.location.href = buildMailto();
+          showStatus('Opening your email app… If nothing happens, click the link below.', true);
+        }catch(err){
+          showStatus('Could not open your email app. Please use the link below.', false);
+        }
+      });
+    }
+
+    if(fallback){
+      fallback.addEventListener('click', function(e){
+        e.preventDefault();
+        window.location.href = buildMailto();
+      });
+    }
+    // ---- Static resume link (simple version) ----
+// Make sure AceHa_Resume.pdf is in the same folder as this HTML file.
+
+
+    // === Minimal diagnostics & tests (open with ?test=1 or #debug) ===
+    function diagnosticsEnabled(){
+      return (window.location.hash === '#debug') || (new URLSearchParams(window.location.search).get('test')==='1');
+    }
+    function addDiag(msg, ok){
+      var list = document.getElementById('diagList');
+      if(!list) return;
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✅ ' : '❌ ') + msg;
+      list.appendChild(li);
+    }
+    if(diagnosticsEnabled()){
+      var diag = document.getElementById('diagnostics');
+      if(diag){ diag.style.display='block'; }
+      addDiag('Footer year element exists: ' + (!!y), !!y);
+      addDiag('Access form present: ' + (!!f), !!f);
+      addDiag('Fallback link present: ' + (!!fallback), !!fallback);
+
+      // Test 1: buildMailto() returns a mailto URL
+      try{
+        var url = buildMailto();
+        addDiag('buildMailto() returns a mailto URL', typeof url === 'string' && url.indexOf('mailto:') === 0);
+      }catch(e){ addDiag('buildMailto() threw: ' + e.message, false); }
+
+      // Test 2: Explicit unit-style test for newline encoding
+      var testURL = buildMailtoFrom('Test User','test+alias@example.com','Acme & Co','Cartesian / Delta');
+      var bodyParam = (testURL.split('body=')[1]||'');
+      addDiag('Body contains encoded newlines (%0A)', bodyParam.indexOf('%0A') !== -1);
+
+      // Test 3: Special characters are URL-encoded (ampersand should be %26)
+      addDiag('Ampersand encoded as %26', bodyParam.indexOf('%26') !== -1);
+    }
+  })();
+  </script>
+</body>
+</html>
