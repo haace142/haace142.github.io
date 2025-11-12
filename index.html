@@ -643,6 +643,75 @@
     // ---- Static resume link (simple version) ----
 // Make sure AceHa_Resume.pdf is in the same folder as this HTML file.
 
+    // === Techy effects: KPI counter + scroll reveal ===
+    (function(){
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // ---- KPI counters ----
+      function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+      function animateNumber(el, target, decimals){
+        var prefix = el.getAttribute('data-prefix') || '';
+        var start = parseFloat((el.textContent || '0').replace(/[^\d.-]/g,'')) || 0;
+        var duration = 1200; // ms
+        var startTs = null;
+        function step(ts){
+          if(startTs === null) startTs = ts;
+          var p = Math.min(1, (ts - startTs) / duration);
+          var val = start + (target - start) * easeOutCubic(p);
+          el.textContent = prefix + val.toFixed(decimals);
+          if(p < 1){ requestAnimationFrame(step); }
+          else { el.textContent = prefix + Number(target).toFixed(decimals); }
+        }
+        requestAnimationFrame(step);
+      }
+
+      function initCounters(){
+        var nodes = document.querySelectorAll('.kpi .val[data-target]');
+        if(!nodes.length) return;
+        if(reduce){
+          nodes.forEach(function(el){
+            var dec = parseInt(el.getAttribute('data-decimals')||'0',10);
+            var tgt = parseFloat(el.getAttribute('data-target')||'0');
+            var pre = el.getAttribute('data-prefix')||'';
+            el.textContent = pre + tgt.toFixed(dec);
+          });
+          return;
+        }
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(ent){
+            if(ent.isIntersecting){
+              var el = ent.target;
+              if(el.dataset.done) return;
+              el.dataset.done = '1';
+              var dec = parseInt(el.getAttribute('data-decimals')||'0',10);
+              var tgt = parseFloat(el.getAttribute('data-target')||'0');
+              animateNumber(el, tgt, dec);
+              io.unobserve(el);
+            }
+          });
+        }, {threshold: 0.5});
+        nodes.forEach(function(el){ io.observe(el); });
+      }
+
+      // ---- Scroll reveal ----
+      function initReveal(){
+        var revealSel = '.card, .kpi, .section h2, .edu-card, .xp';
+        var els = document.querySelectorAll(revealSel);
+        els.forEach(function(el){ el.classList.add('reveal'); });
+        if(reduce){ els.forEach(function(el){ el.classList.add('in'); }); return; }
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(ent){
+            if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target); }
+          });
+        }, {threshold: 0.12});
+        els.forEach(function(el){ io.observe(el); });
+      }
+
+      // Kick off
+      initCounters();
+      initReveal();
+    })();
+
 
     // === Minimal diagnostics & tests (open with ?test=1 or #debug) ===
     function diagnosticsEnabled(){
