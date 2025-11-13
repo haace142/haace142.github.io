@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ace Ha — Robotics • Actuator & Mechatronics Design</title>
@@ -282,9 +284,17 @@
   /* 3D tilt prep */
   .card{transform-style:preserve-3d}
   .hero-image .frame{transform-style:preserve-3d;will-change:transform}
+  main{
+  position: relative;
+  z-index: 1;
+}
 </style>
+  <!-- Delta robot background -->
+  <link rel="stylesheet" href="delta/delta-robot.css">
+  <script defer src="delta/delta-robot.js"></script>
 </head>
 <body>
+  <div id="delta-bg"></div>
   <div class="scrollbar" id="scrollbar"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
   <header>
