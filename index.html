@@ -18,7 +18,7 @@
   /* ===== Humanoid Light — clean, white, techy ===== */
   :root{
     --bg:#ffffff;         /* pure white canvas */
-    --ink:#0b0f1a;        /* near‑black text */
+    --ink:#0b0f1a;        /* near-black text */
     --muted:#5d6b7c;      /* secondary */
     --edge:#e8edf5;       /* soft divider */
     --card:#ffffff;       /* cards */
@@ -39,7 +39,28 @@
   .container{max-width:1280px;margin:0 auto;padding:0 24px}
   header{position:sticky;top:0;z-index:40;background:#ffffffcc;backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--edge)}
   .nav{display:flex;align-items:center;justify-content:space-between;min-height:68px;padding:10px 0} 
-  .nav a.brand{font-weight:800;letter-spacing:.2px;color:#0b0f1a}
+  .nav a.brand{
+    font-weight:800;
+    letter-spacing:.2px;
+    color:#0b0f1a;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .brand-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#20c77c;
+    box-shadow:0 0 8px rgba(32,199,124,0.9);
+    animation:pulseOnline 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseOnline{
+    0%,100%{transform:scale(1);opacity:0.9;}
+    50%{transform:scale(1.4);opacity:0.4;}
+  }
+
   .nav .links{display:flex;gap:22px;flex-wrap:wrap} 
 
   /* Sections */
@@ -57,6 +78,45 @@
   .hero-image .frame.portrait{aspect-ratio:3/4}
   .hero-image .frame img{width:100%;height:100%;object-fit:contain;object-position:center}
 
+  /* Hero status bar (terminal-style) */
+  .hero-status{
+    margin:10px 0 4px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid var(--edge);
+    background:rgba(11,15,26,0.03);
+    font-size:12px;
+    font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  .hero-status .label{
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:#7b8898;
+    font-weight:700;
+  }
+  .hero-status .text{
+    color:#2a3a58;
+    white-space:nowrap;
+    max-width:240px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .hero-status .cursor{
+    width:8px;
+    height:12px;
+    border-radius:2px;
+    background:var(--accent);
+    margin-left:2px;
+    animation:blinkCursor 1s steps(2,start) infinite;
+  }
+  @keyframes blinkCursor{
+    0%,40%{opacity:1;}
+    50%,100%{opacity:0;}
+  }
+
   .chip{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#2a313c;background:#f4f7ff;border:1px solid var(--edge);padding:6px 10px;border-radius:999px}
   .pill{display:inline-block;font-size:12px;color:#2a313c;background:#f6f8fb;border:1px solid var(--edge);padding:6px 10px;border-radius:999px}
 
@@ -72,12 +132,25 @@
 
   /* KPI strip */
   .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-  .kpi{padding:8px 0}
+  .kpi{
+    padding:8px 0;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
   .kpi .cap{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7b8898;white-space:nowrap}
   .kpi .num{font-size:34px;font-weight:850;color:#0b0f1a;line-height:1.05;display:flex;align-items:baseline;gap:6px;font-feature-settings:"tnum" 1}
   .kpi .unit{font-size:20px;color:#7b8898;margin-left:2px}
   .kpi .sub{font-size:13px;color:#7b8898}
   .kpi .val{display:inline-block;min-width:2ch}
+
+  .kpi:hover{
+    transform:translateY(-1px);
+  }
+  .kpi:hover .num{
+    text-shadow:0 0 10px rgba(88,101,242,0.35);
+  }
+  .kpi:hover .cap{
+    color:#4a5a72;
+  }
 
   .tagrow{display:flex;flex-wrap:wrap;gap:8px}
   .tag{border:1px solid var(--edge);color:#2a3a58;padding:4px 8px;border-radius:999px;font-size:12px;background:#f6f8ff;position:relative;box-shadow:0 0 0 1px var(--edge) inset,0 0 10px rgba(88,101,242,.06)}
@@ -108,6 +181,11 @@
     .grid-3,.kpis{grid-template-columns:1fr}
   }
 
+  @media(max-width:600px){
+    .hero-status{max-width:100%}
+    .hero-status .text{max-width:160px;}
+  }
+
   /* two-column list for technical expertise */
   .cols-2 ul{columns:2;column-gap:24px;margin:8px 0;padding-left:18px}
   @media(max-width:980px){.cols-2 ul{columns:1}}
@@ -119,8 +197,42 @@
   .edu-list{max-width:840px;margin:12px auto 0;text-align:left;padding-left:18px}
 
   /* Subtle tech background in hero */
-  .hero::before{content:"";position:absolute;inset:-24px;pointer-events:none;background:radial-gradient(circle at 1px 1px,#e8edff 1px,transparent 1px) 0 0/22px 22px;-webkit-mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);animation:drift 38s linear infinite}
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:-24px;
+    pointer-events:none;
+    background:radial-gradient(circle at 1px 1px,#e8edff 1px,transparent 1px) 0 0/22px 22px;
+    -webkit-mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);
+    mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);
+    animation:drift 38s linear infinite
+  }
   @keyframes drift{to{background-position:200px 120px}}
+
+  /* Subtle scanline overlay in hero */
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:-16px 0 0;
+    pointer-events:none;
+    mix-blend-mode:soft-light;
+    opacity:0.18;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.12) 0px,
+        rgba(0,0,0,0.12) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+    -webkit-mask:linear-gradient(180deg,rgba(0,0,0,0.65),transparent 70%);
+    mask:linear-gradient(180deg,rgba(0,0,0,0.65),transparent 70%);
+    animation:scanSweep 14s linear infinite;
+  }
+  @keyframes scanSweep{
+    0%{background-position:0 0;}
+    100%{background-position:0 120px;}
+  }
 
   /* Reveal animations (respect reduce motion unless forced on) */
   .reveal{opacity:0;transform:translateY(12px)}
@@ -128,6 +240,7 @@
 
   /* Force-on overrides when user requests animations despite OS setting */
   :root[data-anim="on"] .hero::before{ animation:drift 38s linear infinite !important; }
+  :root[data-anim="on"] .hero::after{ animation:scanSweep 14s linear infinite !important; }
   :root[data-anim="on"] .btn.primary::after{ transition:transform .6s !important; }
 
   /* Utilities */
@@ -149,14 +262,23 @@
   .xp .role{margin:0;font-size:18px;font-weight:800}
   .xp .where{margin:4px 0;color:var(--muted)}
   @media(max-width:780px){.xp{grid-template-columns:1fr}.xp .when{order:-1}}
+
   /* Scroll progress bar at top */
   .scrollbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;z-index:60}
+
   /* Cursor glow follower */
   .cursor-glow{position:fixed;width:240px;height:240px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(88,101,242,.22),rgba(122,92,255,0) 60%);filter:blur(18px);mix-blend-mode:multiply;opacity:0;z-index:5;left:0;top:0;transform:translate(-50%,-50%)}
-  @media (prefers-reduced-motion: reduce){.cursor-glow{display:none}}
+  @media (prefers-reduced-motion: reduce){
+    .cursor-glow{display:none}
+    .hero::after{animation:none;opacity:0.08;}
+    .brand-dot{animation:none;}
+    .hero-status .cursor{animation:none;opacity:.5;}
+  }
+
   /* Active nav link highlight */
   .nav .links a.active{position:relative;color:var(--accent);font-weight:800}
   .nav .links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px}
+
   /* 3D tilt prep */
   .card{transform-style:preserve-3d}
   .hero-image .frame{transform-style:preserve-3d;will-change:transform}
@@ -167,7 +289,10 @@
   <div class="cursor-glow" id="cursorGlow"></div>
   <header>
     <div class="container nav">
-      <a href="#top" class="brand">Ace Ha</a>
+      <a href="#top" class="brand">
+        <span class="brand-dot"></span>
+        Ace Ha
+      </a>
       <nav class="links" aria-label="Main navigation">
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
@@ -186,6 +311,13 @@
         <span class="chip">Robot Mechanisms • Motion Systems • Actuators &amp; Gearboxes •  Test Jigs &amp; Fixtures</span>
         <h1>Mechatronics &amp; Mechanical Design for actuators, gearboxes, joints, serial/parallel robots, test jigs</h1>
         <p class="lede">As a mechatronics engineer, I’m passionate about designing robust motion hardware: motor &amp; actuator assemblies, precision mechanisms (robot joints, serial/parallel robots), and production-ready designs with clear load paths, solid GD&amp;T/tolerance stacks, bearing/fastener selection, and DFM/DFA. I also design custom test jigs and verification fixtures for repeatable validation and automated bring-up.</p>
+
+        <div class="hero-status" aria-hidden="true">
+          <span class="label">STATUS</span>
+          <span class="text">Designing reliable motion systems</span>
+          <span class="cursor"></span>
+        </div>
+
         <div class="row" style="margin:14px 0 8px">
           <a class="btn" href="#projects">See Projects</a>
           <a class="btn primary" href="#contact">Contact</a>
@@ -230,11 +362,11 @@
         <div class="card">
           <img loading="lazy" decoding="async" class="thumb-img" src="Cartesian_Project.jpg" alt="Cartesian core XY gantry render">
           <h3>Cartesian Robot (Core Gantry)</h3>
-          <p>Designed and assembled a 3‑axis belt‑driven Cartesian platform using 20×20 V‑slot rails, GT2 belts/idlers, V‑wheels with eccentric spacers, and NEMA‑23 drives. Focused on belt routing, preload, and interference‑free fastener layouts for smooth, precise travel.</p>
-          <div class="tagrow"><span class="tag">V‑slot</span><span class="tag">GT2 • 20T</span><span class="tag">NEMA‑23</span><span class="tag">Mechanisms</span></div>
+          <p>Designed and assembled a 3-axis belt-driven Cartesian platform using 20×20 V-slot rails, GT2 belts/idlers, V-wheels with eccentric spacers, and NEMA-23 drives. Focused on belt routing, preload, and interference-free fastener layouts for smooth, precise travel.</p>
+          <div class="tagrow"><span class="tag">V-slot</span><span class="tag">GT2 • 20T</span><span class="tag">NEMA-23</span><span class="tag">Mechanisms</span></div>
           <details class="mini"><summary>Case study</summary>
             <ul>
-              <li><strong>Problem:</strong> Build a low‑cost, rigid XY‑gantry with minimal backlash for lab demos.</li>
+              <li><strong>Problem:</strong> Build a low-cost, rigid XY-gantry with minimal backlash for lab demos.</li>
               <li><strong>Role:</strong> Mechanical design &amp; build, alignment, verification.</li>
               <li><strong>Approach:</strong> Clear load paths, idler alignment, belt tension jigs, indicator checks.</li>
               <li><strong>Results:</strong> Backlash ≤0.05 mm; repeatability ±0.05 mm (indicator rig).</li>
@@ -246,13 +378,13 @@
         <div class="card">
           <img loading="lazy" decoding="async" class="thumb-img" src="TensileTester_Project.jpg" alt="Tensile tester Instron retrofit">
           <h3>Tensile Test Machine</h3>
-          <p>Developed a tensile‑testing machine using TMS320 and Raspberry Pi 4. Built a Python HMI for data capture and real‑time plotting; integrated PI control and safety interlocks.</p>
+          <p>Developed a tensile-testing machine using TMS320 and Raspberry Pi 4. Built a Python HMI for data capture and real-time plotting; integrated PI control and safety interlocks.</p>
           <div class="tagrow"><span class="tag">TMS320</span><span class="tag">Python GUI</span><span class="tag">PI control</span></div>
           <details class="mini"><summary>Case study</summary>
             <ul>
-              <li><strong>Problem:</strong> Low‑cost tensile tester with automated logging.</li>
+              <li><strong>Problem:</strong> Low-cost tensile tester with automated logging.</li>
               <li><strong>Role:</strong> Controls &amp; electronics integration, HMI, test plan.</li>
-              <li><strong>Approach:</strong> Load‑cell signal chain, PI loop, CSV/JSON logging, pass/fail.</li>
+              <li><strong>Approach:</strong> Load-cell signal chain, PI loop, CSV/JSON logging, pass/fail.</li>
               <li><strong>Results:</strong> Stable control with calibrated load curve; reproducible runs.</li>
             </ul>
           </details>
@@ -261,12 +393,12 @@
         <!-- PLC Elevator -->
         <div class="card">
           <img loading="lazy" decoding="async" class="thumb-img" src="elevator_project.jpg" alt="Allen-Bradley PLC elevator panel">
-          <h3>Elevator Automation with Allen‑Bradley PLC</h3>
-          <p>Implemented elevator sequencing, door logic, emergency stop, multi‑call handling, and statistics using Rockwell PLCs. Delivered state machine, AOIs, UDTs, and HMI.</p>
+          <h3>Elevator Automation with Allen-Bradley PLC</h3>
+          <p>Implemented elevator sequencing, door logic, emergency stop, multi-call handling, and statistics using Rockwell PLCs. Delivered state machine, AOIs, UDTs, and HMI.</p>
           <div class="tagrow"><span class="tag">PLC</span><span class="tag">State machine</span><span class="tag">HMI</span></div>
           <details class="mini"><summary>Case study</summary>
             <ul>
-              <li><strong>Problem:</strong> Robust multi‑floor logic with safety.</li>
+              <li><strong>Problem:</strong> Robust multi-floor logic with safety.</li>
               <li><strong>Role:</strong> Ladder design, HMI, I/O checkout.</li>
               <li><strong>Approach:</strong> AOI/UDT templates, interlocks, simulation tests.</li>
               <li><strong>Results:</strong> Reliable cycle with debounce &amp; emergency handling.</li>
@@ -278,8 +410,8 @@
         <div class="card">
           <img loading="lazy" decoding="async" class="thumb-img" src="Voltageregulator&amp;motordriver_project.jpg" alt="H-bridge motor driver and regulator boards">
           <h3>DC Motor Drive &amp; Voltage Regulator</h3>
-          <p>Designed and built a BJT H‑bridge with electrical braking and a linear adjustable regulator. Verified component limits and documented test procedures.</p>
-          <div class="tagrow"><span class="tag">Power electronics</span><span class="tag">H‑bridge</span></div>
+          <p>Designed and built a BJT H-bridge with electrical braking and a linear adjustable regulator. Verified component limits and documented test procedures.</p>
+          <div class="tagrow"><span class="tag">Power electronics</span><span class="tag">H-bridge</span></div>
           <details class="mini"><summary>Case study</summary>
             <ul>
               <li><strong>Problem:</strong> Simple, serviceable drive for lab demos.</li>
@@ -294,13 +426,13 @@
         <div class="card">
           <img loading="lazy" decoding="async" class="thumb-img" src="GrippeDesign_projects.png" alt="Robot gripper CAD and 3D print">
           <h3>Robot Gripper Design</h3>
-          <p>Designed and prototyped an ABB‑style robot gripper in SolidWorks with 3D‑printed parts. Added laser alignment feature; ran static deflection analysis.</p>
+          <p>Designed and prototyped an ABB-style robot gripper in SolidWorks with 3D-printed parts. Added laser alignment feature; ran static deflection analysis.</p>
           <div class="tagrow"><span class="tag">SolidWorks</span><span class="tag">Prototype</span></div>
           <details class="mini"><summary>Case study</summary>
             <ul>
               <li><strong>Problem:</strong> Lightweight, printable gripper for demos.</li>
               <li><strong>Role:</strong> CAD, fabrication, test.</li>
-              <li><strong>Approach:</strong> Linkage study, moment loads, quick‑release fingers.</li>
+              <li><strong>Approach:</strong> Linkage study, moment loads, quick-release fingers.</li>
               <li><strong>Results:</strong> Reliable pick/place; simple field service.</li>
             </ul>
           </details>
@@ -314,7 +446,7 @@
           <div class="tagrow"><span class="tag">Kinematics</span><span class="tag">OpenCV</span></div>
           <details class="mini"><summary>Case study</summary>
             <ul>
-              <li><strong>Problem:</strong> High‑speed pick‑and‑place concept.</li>
+              <li><strong>Problem:</strong> High-speed pick-and-place concept.</li>
               <li><strong>Role:</strong> Mechanisms, control software, vision pipeline.</li>
               <li><strong>Approach:</strong> FK/IK library, image thresholding, stepper timing.</li>
               <li><strong>Results:</strong> Smooth trajectories; accurate picks on test rig.</li>
@@ -365,11 +497,11 @@
     <section id="focus" class="section">
       <h2>Humanoid Robotics Focus</h2>
       <div class="card">
-        <p class="muted">With lots of hands‑on humanoid building: actuator & robot‑joint assembly, jigs/fixtures, wire‑harness fabrication and soldering, plus calibration/verification on test rigs. Also open to mechanical/mechatronics design (CAD in SolidWorks/Onshape, basic GD&amp;T/tolerance stacks, simple jigs/assemblies).</p>
-        <h3 style="margin-top:8px">Hands‑on Build &amp; Commissioning</h3>
+        <p class="muted">With lots of hands-on humanoid building: actuator & robot-joint assembly, jigs/fixtures, wire-harness fabrication and soldering, plus calibration/verification on test rigs. Also open to mechanical/mechatronics design (CAD in SolidWorks/Onshape, basic GD&amp;T/tolerance stacks, simple jigs/assemblies).</p>
+        <h3 style="margin-top:8px">Hands-on Build &amp; Commissioning</h3>
         <ul>
           <li><strong>Mechanical assembly:</strong> actuator and humanoid robot subassemblies</li>
-          <li><strong>Electrical assembly:</strong> electrical wiring, electronics assembly, soldering, custom wire‑harness build</li>
+          <li><strong>Electrical assembly:</strong> electrical wiring, electronics assembly, soldering, custom wire-harness build</li>
           <li><strong>Troubleshooting &amp; service:</strong> maintenance, repair, and reliability improvements</li>
           <li><strong>Test &amp; commissioning:</strong> operate actuator test systems, calibration, commissioning, and documentation</li>
         </ul>
@@ -377,7 +509,7 @@
           <span class="pill">Actuator design</span>
           <span class="pill">Jig/fixture</span>
           <span class="pill">Test systems</span>
-          <span class="pill">Wire‑harness</span>
+          <span class="pill">Wire-harness</span>
           <span class="pill">DFM/DFA</span>
         </div>
       </div>
@@ -391,12 +523,12 @@
           <div class="when">Sep 2025 – Present</div>
           <div>
             <h3 class="role">Junior Mechatronics Designer</h3>
-            <p class="where"><strong>TM‑Engineering Ltd.</strong> — Burnaby, BC</p>
-            <p>Joined R&amp;D to design, build, and validate servo‑driven sample‑handling machines. Worked across mechanical design, embedded bring‑up, and test systems to deliver reliable, serviceable hardware.</p>
+            <p class="where"><strong>TM-Engineering Ltd.</strong> — Burnaby, BC</p>
+            <p>Joined R&amp;D to design, build, and validate servo-driven sample-handling machines. Worked across mechanical design, embedded bring-up, and test systems to deliver reliable, serviceable hardware.</p>
             <ul>
-              <li>Designed motion‑control concepts and operational sequences; defined states, interlocks, and safety I/O.</li>
+              <li>Designed motion-control concepts and operational sequences; defined states, interlocks, and safety I/O.</li>
               <li>Built jigs/fixtures and test benches; wrote verification procedures and acceptance criteria.</li>
-              <li>Developed embedded utilities for bring‑up; configured I/O and harnessing; performed signal‑integrity checks.</li>
+              <li>Developed embedded utilities for bring-up; configured I/O and harnessing; performed signal-integrity checks.</li>
               <li>Assembled and tested electric motors and mechanical subassemblies; supported pneumatics/hydraulics circuits.</li>
               <li>Produced documentation: specs, test plans, BOMs, wiring diagrams, and commissioning guides.</li>
             </ul>
@@ -408,11 +540,11 @@
           <div>
             <h3 class="role">Robot Programmer</h3>
             <p class="where"><strong>Food Process Solutions</strong> — Richmond, BC</p>
-            <p>Robot Programmer delivering ABB‑based palletizing systems in regulated food‑processing environments; focused on precision motion, integration, and robust commissioning.</p>
+            <p>Robot Programmer delivering ABB-based palletizing systems in regulated food-processing environments; focused on precision motion, integration, and robust commissioning.</p>
             <ul>
               <li>Programmed and optimized ABB robots; improved path planning and reduced cycle time.</li>
               <li>Integrated conveyors, sensors, vision, and PLC/HMI; ensured safety and standards compliance.</li>
-              <li>Executed testing, debugging, and on‑site commissioning; created SOPs and trained operators.</li>
+              <li>Executed testing, debugging, and on-site commissioning; created SOPs and trained operators.</li>
               <li>Assisted electrical wiring and installation; supported troubleshooting and reliability improvements.</li>
             </ul>
           </div>
@@ -423,13 +555,13 @@
           <div>
             <h3 class="role">Robotics Technician</h3>
             <p class="where"><strong>Sanctuary AI</strong> — Vancouver, BC</p>
-            <p>Hired during a key growth phase to support development of humanoid hand/actuator systems. Worked hands‑on in assembly, calibration, and testing to improve robotic reliability.</p>
+            <p>Hired during a key growth phase to support development of humanoid hand/actuator systems. Worked hands-on in assembly, calibration, and testing to improve robotic reliability.</p>
             <ul>
               <li>Conducted precision assembly of robotic actuators and hands to ensure optimal dexterity, movement, and durability.</li>
               <li>Performed electrical assembly, including wiring, soldering, and integration of sensors and control electronics.</li>
               <li>Operated actuator testing systems and calibrated motors to meet strict performance specifications.</li>
               <li>Diagnosed, troubleshot, and repaired robotic hand/actuator systems, minimizing downtime and improving reliability.</li>
-              <li>Collaborated with cross‑functional engineering teams to prototype, validate, and improve robotic hand designs.</li>
+              <li>Collaborated with cross-functional engineering teams to prototype, validate, and improve robotic hand designs.</li>
             </ul>
           </div>
         </div>
@@ -444,7 +576,7 @@
           <h3>Mechanical</h3>
           <ul>
             <li>Precision mechanisms • bearings &amp; fits • bolt preload • joint design</li>
-            <li>Tolerance stack‑ups • GD&amp;T • DFM/DFA • jigs &amp; fixtures</li>
+            <li>Tolerance stack-ups • GD&amp;T • DFM/DFA • jigs &amp; fixtures</li>
             <li>Rotating hardware: shafts/gearboxes, rotor/stator inspection basics</li>
             <li>Manufacturing: turning, milling, drilling, grinding; casting/plastics/composites; forming; welding/brazing; CNC</li>
           </ul>
@@ -453,18 +585,18 @@
           <h3>Electronics, Firmware &amp; Test</h3>
           <ul>
             <li>MCUs: MSP430 • STM32 • TMS320 • ESP8266/ESP32 • Raspberry Pi 4 • Arduino</li>
-            <li>PLCs: Siemens • Allen‑Bradley • Schneider (familiar)</li>
+            <li>PLCs: Siemens • Allen-Bradley • Schneider (familiar)</li>
             <li>Interfaces &amp; fieldbus: I²C • UART • SPI • RS485 (Modbus RTU) • RS232 • EtherCAT • safety I/O</li>
             <li>Python for automated testing (fixtures, data logging, plots, CSV/JSON, pass/fail limits)</li>
-            <li>Signal integrity basics • EMC awareness • PCB bring‑up</li>
+            <li>Signal integrity basics • EMC awareness • PCB bring-up</li>
           </ul>
         </div>
         <div class="card">
           <h3>Controls, QA &amp; Ops</h3>
           <ul>
-            <li>Motion control • PID • S‑curve profiles • kinematics • RobotStudio</li>
+            <li>Motion control • PID • S-curve profiles • kinematics • RobotStudio</li>
             <li>Test plans • verification protocols • calibration rigs • GR&amp;R basics</li>
-            <li>ISO‑9001 mindset • traceability • revision control • work instructions/SOPs</li>
+            <li>ISO-9001 mindset • traceability • revision control • work instructions/SOPs</li>
             <li>Lean concepts • basic ERP (BOMs, routings, travelers)</li>
           </ul>
         </div>
@@ -510,7 +642,7 @@
     <section id="education" class="section">
       <h2>Education</h2>
       <div class="card edu-card">
-        <h3>Diploma in Mechatronics and Robotics (Full‑time, 2‑year)</h3>
+        <h3>Diploma in Mechatronics and Robotics (Full-time, 2-year)</h3>
         <p class="muted"><strong>British Columbia Institute of Technology (BCIT)</strong> — Burnaby, BC • Graduated May 2024</p>
         <p style="margin-top:8px"><a href="https://www.bcit.ca/programs/mechatronics-and-robotics-diploma-full-time-7340diplt/" target="_blank" rel="noopener">Program page — BCIT</a></p>
       </div>
@@ -520,14 +652,14 @@
     <section id="contact" class="section">
       <h2>Contact — Work &amp; Access</h2>
       <div class="card">
-        <p class="muted" style="margin-top:0">Reach out for <strong>work opportunities</strong> (full‑time, contract, collaboration) or <strong>request confidential access</strong> to project previews.</p>
+        <p class="muted" style="margin-top:0">Reach out for <strong>work opportunities</strong> (full-time, contract, collaboration) or <strong>request confidential access</strong> to project previews.</p>
         <p>Email: <a href="mailto:haduyhung142@gmail.com">haduyhung142@gmail.com</a> • LinkedIn: <a href="https://www.linkedin.com/in/ace-ha-634661290" target="_blank" rel="noopener">linkedin.com/in/ace-ha-634661290</a></p>
         <div class="row" style="margin:8px 0 10px;flex-wrap:wrap">
           <a class="btn primary" id="workEmailBtn" href="mailto:haduyhung142@gmail.com?subject=Work%20inquiry%20%E2%80%94%20Ace%20Ha%20Portfolio&body=Hi%20Ace%2C%0A%0AI%27d%20like%20to%20discuss%20a%20%5Brole%20%2F%20project%5D.%0ACompany%3A%20%5Bname%5D%0ARole%2FContext%3A%20%5Bbrief%5D%0ATimeline%3A%20%5Bwhen%5D%0A%0AThanks!%0A">Contact for Work</a>
           <a class="btn" href="#access">Request project access</a>
           <a class="btn" id="resumeLink" href="AceHa_Resume.pdf" download target="_blank" rel="noopener">Download Resume (PDF)</a>
         </div>
-        <p class="muted">For work opportunities and/or access to redacted project previews, you can also use the form below to send a quick <strong>access/work inquiry</strong>. Roles of interest: <strong>Mechatronics Engineer</strong> • <strong>Mechanical Engineer</strong> • <strong>Robotics Technician</strong> • <strong>Robotics R&amp;D</strong> • <strong>Electronics Technician</strong> — On‑site/Hybrid in Greater Vancouver.</p>
+        <p class="muted">For work opportunities and/or access to redacted project previews, you can also use the form below to send a quick <strong>access/work inquiry</strong>. Roles of interest: <strong>Mechatronics Engineer</strong> • <strong>Mechanical Engineer</strong> • <strong>Robotics Technician</strong> • <strong>Robotics R&amp;D</strong> • <strong>Electronics Technician</strong> — On-site/Hybrid in Greater Vancouver.</p>
       </div>
     </section>
 
@@ -544,7 +676,7 @@
     <section id="access" class="section">
       <h2>Access or Work Inquiry (Confidential Preview)</h2>
       <div class="card">
-        <p class="muted">Recruiters and hiring managers: use this form to request <strong>confidential preview access</strong> or to start a <strong>work inquiry</strong>. To prevent idea/geometry leakage, I share <strong>redacted, watermarked previews</strong> and a <strong>high‑level case study</strong> on request. Full CAD, drawings, code, and test data are only available under NDA or during interviews.</p>
+        <p class="muted">Recruiters and hiring managers: use this form to request <strong>confidential preview access</strong> or to start a <strong>work inquiry</strong>. To prevent idea/geometry leakage, I share <strong>redacted, watermarked previews</strong> and a <strong>high-level case study</strong> on request. Full CAD, drawings, code, and test data are only available under NDA or during interviews.</p>
         <ul>
           <li>What you’ll get: architecture diagrams without dimensions, subassembly photos, short demo clips, verification results, and a responsibilities/tools summary.</li>
           <li>What’s withheld: native CAD, detailed drawings/tolerances, full BOM pricing, source code, and process IP.</li>
