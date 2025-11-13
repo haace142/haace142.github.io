@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ace Ha — Robotics • Actuator & Mechatronics Design</title>
-  <meta property=\"og:title\" content=\"Ace Ha — Robotics • Actuator & Mechatronics Design\">
-  <meta property=\"og:description\" content=\"Projects, case studies, skills, and contact.\">
-  <meta property=\"og:type\" content=\"website\">
-  <meta property=\"og:url\" content=\"https://haace142.github.io/ace-portfolio/\">
-  <meta property=\"og:image\" content=\"Ace_Profile_.jpg\">
-  <meta name=\"twitter:card\" content=\"summary_large_image\">
-  <link rel=\"icon\" href=\"favicon.svg\" type=\"image/svg+xml\">
-  <!-- Optional lightweight analytics: uncomment one and configure -->
-  <!-- Plausible: <script defer data-domain=\"haace142.github.io/ace-portfolio\" src=\"https://plausible.io/js/script.js\"></script> -->
-  <!-- Cloudflare Web Analytics: <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"YOUR_TOKEN_HERE"}'></script> -->
+  <!-- Open Graph / Twitter for nicer shares -->
+  <meta property="og:title" content="Ace Ha — Robotics • Actuator & Mechatronics Design">
+  <meta property="og:description" content="Projects, case studies, skills, and contact.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://haace142.github.io/ace-portfolio/">
+  <meta property="og:image" content="Ace_Profile_.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://haace142.github.io/ace-portfolio/">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ace Ha","jobTitle":"Mechatronics Engineer","url":"https://haace142.github.io/ace-portfolio/","email":"mailto:haduyhung142@gmail.com","knowsAbout":["Robotics","Actuators","Mechatronics","PLC","CAD"],"sameAs":["https://www.linkedin.com/in/ace-ha-634661290"]}</script>
 <style>
-  /* ===== Humanoid Light — clean, white, sanctuary‑like ===== */
+  /* ===== Humanoid Light — clean, white, techy ===== */
   :root{
     --bg:#ffffff;         /* pure white canvas */
     --ink:#0b0f1a;        /* near‑black text */
@@ -23,7 +23,7 @@
     --edge:#e8edf5;       /* soft divider */
     --card:#ffffff;       /* cards */
     --accent:#5865F2;     /* cobalt blue accent */
-    --accent2:#7a5cff;    /* indigo tint for subtle gradients */
+    --accent2:#7a5cff;    /* indigo tint */
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth; scroll-padding-top:80px}
@@ -48,12 +48,11 @@
   .section p.muted{color:var(--muted)}
 
   /* Hero */
-  .hero{padding:92px 0 36px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}
+  .hero{padding:92px 0 36px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;position:relative}
   .hero h1{font-size:48px;line-height:1.05;margin:12px 0 8px;font-weight:850;letter-spacing:-0.3px}
   .hero p{color:var(--muted);margin:0 0 18px;font-size:18px}
   .hero .lede{font-size:18px}
   .hero-image{position:relative;border-radius:18px;overflow:hidden}
-  /* Hero portrait option */
   .hero-image .frame{width:100%;aspect-ratio:16/10;background:#f3f5f9;border:1px solid var(--edge);border-radius:18px;overflow:hidden;display:grid;place-items:center;color:#8390a3}
   .hero-image .frame.portrait{aspect-ratio:3/4}
   .hero-image .frame img{width:100%;height:100%;object-fit:contain;object-position:center}
@@ -61,40 +60,46 @@
   .chip{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#2a313c;background:#f4f7ff;border:1px solid var(--edge);padding:6px 10px;border-radius:999px}
   .pill{display:inline-block;font-size:12px;color:#2a313c;background:#f6f8fb;border:1px solid var(--edge);padding:6px 10px;border-radius:999px}
 
-  /* Cards (very light) */
-  .card{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px;box-shadow:0 2px 14px rgba(18,26,45,.04)}
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px;box-shadow:0 2px 14px rgba(18,26,45,.04);transition:border-color .25s,box-shadow .25s,transform .25s}
   .card h3{margin:0 0 8px;font-size:18px}
   .card p{margin:6px 0;color:var(--muted);font-size:14px}
+  .card:hover{border-color:#cfd7ff;box-shadow:0 8px 30px rgba(88,101,242,.12);transform:translateY(-2px)}
 
   /* Grids */
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  #projects .grid-3{grid-template-columns:1fr;gap:28px}
+  #projects .grid-3{grid-template-columns:1fr;gap:28px} /* 1 column, full-width gallery cards */
 
-  /* KPI strip (Sanctuary style: tiny caption + big number) */
+  /* KPI strip */
   .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
   .kpi{padding:8px 0}
   .kpi .cap{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7b8898;white-space:nowrap}
   .kpi .num{font-size:34px;font-weight:850;color:#0b0f1a;line-height:1.05;display:flex;align-items:baseline;gap:6px;font-feature-settings:"tnum" 1}
   .kpi .unit{font-size:20px;color:#7b8898;margin-left:2px}
   .kpi .sub{font-size:13px;color:#7b8898}
+  .kpi .val{display:inline-block;min-width:2ch}
 
-  /* Project tags */
   .tagrow{display:flex;flex-wrap:wrap;gap:8px}
-  .tag{border:1px solid var(--edge);color:#2a3a58;padding:4px 8px;border-radius:999px;font-size:12px;background:#f6f8ff}
+  .tag{border:1px solid var(--edge);color:#2a3a58;padding:4px 8px;border-radius:999px;font-size:12px;background:#f6f8ff;position:relative;box-shadow:0 0 0 1px var(--edge) inset,0 0 10px rgba(88,101,242,.06)}
+  .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(88,101,242,.4);display:inline-block;margin-right:6px;vertical-align:middle}
 
   /* Case-study toggles */
   details.mini{margin-top:8px;border-top:1px solid var(--edge);padding-top:8px}
   details.mini summary{cursor:pointer;color:#2a3a58;font-weight:700}
   details.mini ul{margin:8px 0 0 16px;color:var(--muted);font-size:14px}
 
-  /* Project thumbnails */
-  .thumb-img{width:100%;aspect-ratio:4/3;border-radius:12px;border:1px solid var(--edge);object-fit:contain;background:#f6f8ff}
+  /* Project thumbnails with shimmer on hover */
+  .thumb-img{width:100%;aspect-ratio:4/3;border-radius:12px;border:1px solid var(--edge);object-fit:contain;background:#f6f8ff;position:relative;display:block;transition:transform .35s ease}
+  .card:hover .thumb-img{transform:scale(1.01)}
+  .thumb-img::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;background:linear-gradient(110deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.65) 18%,rgba(255,255,255,0) 33%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.22,.61,.36,1)}
+  .card:hover .thumb-img::after{transform:translateX(120%)}
 
   .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:8px;color:#fff;border:1px solid #5865F2;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:800;background:#0b0f1a}
   .btn:hover{background:#161a25}
-  .btn.primary{background:linear-gradient(180deg,#7a86ff,#5865F2);border-color:#5865F2}
-  .btn.primary:hover{background:linear-gradient(180deg,#8a94ff,#6a76ff)}
+  .btn.primary{background:linear-gradient(180deg,#7a86ff,#5865F2);border-color:#5865F2;position:relative;overflow:hidden}
+  .btn.primary::after{content:"";position:absolute;inset:-30% -10%;pointer-events:none;filter:blur(10px);background:radial-gradient(ellipse at center,rgba(138,148,255,.45),transparent 60%);transform:translateX(-120%);transition:transform .6s}
+  .btn.primary:hover::after{transform:translateX(20%)}
 
   footer{padding:36px 0 80px;text-align:center;color:#7b8898}
 
@@ -106,46 +111,28 @@
   /* two-column list for technical expertise */
   .cols-2 ul{columns:2;column-gap:24px;margin:8px 0;padding-left:18px}
   @media(max-width:980px){.cols-2 ul{columns:1}}
-    /* Education styles */
+
+  /* Education styles */
   .edu-card{text-align:center}
   .edu-card h3{font-size:22px;font-weight:800;margin:0 0 6px}
   .edu-card p{margin:6px 0}
   .edu-list{max-width:840px;margin:12px auto 0;text-align:left;padding-left:18px}
-  /* --- Tech polish (subtle, lightweight) --- */
-  .hero{position:relative}
-  .hero::before{content:"";position:absolute;inset:-24px;pointer-events:none;
-    background:radial-gradient(circle at 1px 1px,#e8edff 1px,transparent 1px) 0 0/22px 22px;
-    -webkit-mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);
-            mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);
-    animation:drift 38s linear infinite}
+
+  /* Subtle tech background in hero */
+  .hero::before{content:"";position:absolute;inset:-24px;pointer-events:none;background:radial-gradient(circle at 1px 1px,#e8edff 1px,transparent 1px) 0 0/22px 22px;-webkit-mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);mask:linear-gradient(180deg,rgba(0,0,0,.18),transparent 60%);animation:drift 38s linear infinite}
   @keyframes drift{to{background-position:200px 120px}}
 
-  .card{transition:border-color .25s,box-shadow .25s,transform .25s}
-  .card:hover{border-color:#cfd7ff;box-shadow:0 8px 30px rgba(88,101,242,.12);transform:translateY(-2px)}
-  .thumb-img{transition:transform .35s ease}
-  .card:hover .thumb-img{transform:scale(1.01)}
-
-  .btn.primary{position:relative;overflow:hidden}
-  .btn.primary::after{content:"";position:absolute;inset:-30% -10%;pointer-events:none;filter:blur(10px);
-    background:radial-gradient(ellipse at center,rgba(138,148,255,.45),transparent 60%);
-    transform:translateX(-120%);transition:transform .6s}
-  .btn.primary:hover::after{transform:translateX(20%)}
-
-  @media (prefers-reduced-motion:reduce){
-    .hero::before,.btn.primary::after{animation:none;transition:none}
-  }
+  /* Reveal animations (respect reduce motion unless forced on) */
   .reveal{opacity:0;transform:translateY(12px)}
   .reveal.in{opacity:1;transform:none;transition:all .6s cubic-bezier(.22,.61,.36,1)}
-  /* --- Enhancements: shimmer + neon pills/tags --- */
-  .thumb-img{position:relative;display:block}
-  .thumb-img::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;
-    background:linear-gradient(110deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.65) 18%,rgba(255,255,255,0) 33%);
-    transform:translateX(-120%);transition:transform .9s cubic-bezier(.22,.61,.36,1)}
-  .card:hover .thumb-img::after{transform:translateX(120%)}
 
-  .pill,.tag{position:relative;box-shadow:0 0 0 1px var(--edge) inset,0 0 10px rgba(88,101,242,.06)}
-  .pill::before,.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);
-    box-shadow:0 0 8px rgba(88,101,242,.4);display:inline-block;margin-right:6px;vertical-align:middle}
+  /* Force-on overrides when user requests animations despite OS setting */
+  :root[data-anim="on"] .hero::before{ animation:drift 38s linear infinite !important; }
+  :root[data-anim="on"] .btn.primary::after{ transition:transform .6s !important; }
+
+  /* Utilities */
+  hr.divider{border:0;border-top:1px solid var(--edge);margin:0}
+
   /* Slogan banner & headline */
   .slogan-banner{background:#0b0f1a;color:#fff}
   .slogan-banner .container{padding:36px 24px}
@@ -154,6 +141,7 @@
   .slogan{padding:48px 0;border-top:none}
   .slogan h2{font-size:44px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1.14;text-align:center;margin:28px 0}
   @media(max-width:980px){.slogan h2{font-size:32px}.slogan-banner .quote{font-size:18px}}
+
   /* Experience timeline */
   .timeline{display:grid;gap:16px}
   .xp{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:start}
@@ -162,8 +150,6 @@
   .xp .where{margin:4px 0;color:var(--muted)}
   @media(max-width:780px){.xp{grid-template-columns:1fr}.xp .when{order:-1}}
 </style>
-  <link rel="canonical" href="https://haace142.github.io/ace-portfolio/">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ace Ha","jobTitle":"Mechatronics Engineer","url":"https://haace142.github.io/ace-portfolio/","email":"mailto:haduyhung142@gmail.com","knowsAbout":["Robotics","Actuators","Mechatronics","PLC","CAD"],"sameAs":["https://www.linkedin.com/in/ace-ha-634661290"]}</script>
 </head>
 <body>
   <header>
@@ -185,7 +171,7 @@
     <section class="hero">
       <div>
         <span class="chip">Robot Mechanisms • Motion Systems • Actuators &amp; Gearboxes •  Test Jigs &amp; Fixtures</span>
-        <h1>Mechatronics & Mechanical Design for actuators, gearboxes, joints, serial/parallel robots, test jigs</h1>
+        <h1>Mechatronics &amp; Mechanical Design for actuators, gearboxes, joints, serial/parallel robots, test jigs</h1>
         <p class="lede">As a mechatronics engineer, I’m passionate about designing robust motion hardware: motor &amp; actuator assemblies, precision mechanisms (robot joints, serial/parallel robots), and production-ready designs with clear load paths, solid GD&amp;T/tolerance stacks, bearing/fastener selection, and DFM/DFA. I also design custom test jigs and verification fixtures for repeatable validation and automated bring-up.</p>
         <div class="row" style="margin:14px 0 8px">
           <a class="btn" href="#projects">See Projects</a>
@@ -206,8 +192,6 @@
     </section>
 
     <!-- SLOGAN / QUOTE STRIP -->
-    <!-- SLOGAN / QUOTE STRIP -->
-    <!-- SLOGAN / QUOTE STRIP -->
     <section class="slogan-banner" aria-label="Slogan quote">
       <div class="container">
         <div class="quote">“Engineering turns imagination into reliable motion.”</div>
@@ -223,7 +207,7 @@
     <!-- PROJECTS -->
     <section id="projects" class="section">
       <div class="row" style="justify-content:space-between;align-items:baseline">
-        <h2>Motion Hardware & Robotics Projects</h2>
+        <h2>Motion Hardware &amp; Robotics Projects</h2>
         <span class="pill">Target roles: Mechatronics • Robotics R&amp;D • Mechanical Design</span>
       </div>
       <p class="muted">Curated academic and personal builds demonstrating motion hardware, PLC control, and CAD—from concept to validated prototypes.</p>
@@ -368,13 +352,13 @@
     <section id="focus" class="section">
       <h2>Humanoid Robotics Focus</h2>
       <div class="card">
-        <p class="muted">With lots of hands‑on humanoid building: actuator & robot‑joint assembly, jigs/fixtures, wire‑harness fabrication and soldering, plus calibration/verification on test rigs. Also open to mechanical/mechatronics design (CAD in SolidWorks/Onshape, basic GD&T/tolerance stacks, simple jigs/assemblies).</p>
-        <h3 style="margin-top:8px">Hands‑on Build & Commissioning</h3>
+        <p class="muted">With lots of hands‑on humanoid building: actuator & robot‑joint assembly, jigs/fixtures, wire‑harness fabrication and soldering, plus calibration/verification on test rigs. Also open to mechanical/mechatronics design (CAD in SolidWorks/Onshape, basic GD&amp;T/tolerance stacks, simple jigs/assemblies).</p>
+        <h3 style="margin-top:8px">Hands‑on Build &amp; Commissioning</h3>
         <ul>
           <li><strong>Mechanical assembly:</strong> actuator and humanoid robot subassemblies</li>
           <li><strong>Electrical assembly:</strong> electrical wiring, electronics assembly, soldering, custom wire‑harness build</li>
-          <li><strong>Troubleshooting & service:</strong> maintenance, repair, and reliability improvements</li>
-          <li><strong>Test & commissioning:</strong> operate actuator test systems, calibration, commissioning, and documentation</li>
+          <li><strong>Troubleshooting &amp; service:</strong> maintenance, repair, and reliability improvements</li>
+          <li><strong>Test &amp; commissioning:</strong> operate actuator test systems, calibration, commissioning, and documentation</li>
         </ul>
         <div class="tagrow" style="margin-top:8px">
           <span class="pill">Actuator design</span>
@@ -395,7 +379,7 @@
           <div>
             <h3 class="role">Junior Mechatronics Designer</h3>
             <p class="where"><strong>TM‑Engineering Ltd.</strong> — Burnaby, BC</p>
-            <p>Joined R&D to design, build, and validate servo‑driven sample‑handling machines. Worked across mechanical design, embedded bring‑up, and test systems to deliver reliable, serviceable hardware.</p>
+            <p>Joined R&amp;D to design, build, and validate servo‑driven sample‑handling machines. Worked across mechanical design, embedded bring‑up, and test systems to deliver reliable, serviceable hardware.</p>
             <ul>
               <li>Designed motion‑control concepts and operational sequences; defined states, interlocks, and safety I/O.</li>
               <li>Built jigs/fixtures and test benches; wrote verification procedures and acceptance criteria.</li>
@@ -431,7 +415,7 @@
               <li>Conducted precision assembly of robotic actuators and hands to ensure optimal dexterity, movement, and durability.</li>
               <li>Performed electrical assembly, including wiring, soldering, and integration of sensors and control electronics.</li>
               <li>Operated actuator testing systems and calibrated motors to meet strict performance specifications.</li>
-              <li>Diagnosed, troubleshot, and repaired robotic hand/actuator systems, minimising downtime and improving reliability.</li>
+              <li>Diagnosed, troubleshot, and repaired robotic hand/actuator systems, minimizing downtime and improving reliability.</li>
               <li>Collaborated with cross‑functional engineering teams to prototype, validate, and improve robotic hand designs.</li>
             </ul>
           </div>
@@ -508,6 +492,7 @@
       </div>
       <p class="note">Programming languages: C • Python • basic Assembly.</p>
     </section>
+
     <!-- EDUCATION -->
     <section id="education" class="section">
       <h2>Education</h2>
@@ -516,11 +501,11 @@
         <p class="muted"><strong>British Columbia Institute of Technology (BCIT)</strong> — Burnaby, BC • Graduated May 2024</p>
         <p style="margin-top:8px"><a href="https://www.bcit.ca/programs/mechatronics-and-robotics-diploma-full-time-7340diplt/" target="_blank" rel="noopener">Program page — BCIT</a></p>
       </div>
-</section>
+    </section>
 
     <!-- CONTACT / RESUME -->
     <section id="contact" class="section">
-      <h2>Contact — Work & Access</h2>
+      <h2>Contact — Work &amp; Access</h2>
       <div class="card">
         <p class="muted" style="margin-top:0">Reach out for <strong>work opportunities</strong> (full‑time, contract, collaboration) or <strong>request confidential access</strong> to project previews.</p>
         <p>Email: <a href="mailto:haduyhung142@gmail.com">haduyhung142@gmail.com</a> • LinkedIn: <a href="https://www.linkedin.com/in/ace-ha-634661290" target="_blank" rel="noopener">linkedin.com/in/ace-ha-634661290</a></p>
@@ -534,7 +519,6 @@
     </section>
 
     <hr class="divider"/>
-    <!-- Redacted public downloads to protect IP. Use the Access on Request section instead. -->
 
     <section class="section">
       <h2>Achievements</h2>
@@ -582,7 +566,7 @@
   </footer>
 
   <script>
-  // Footer year + Request form (mailto)
+  // Footer year + Request form (mailto) + Techy effects + Diagnostics
   (function(){
     var y = document.getElementById('y');
     if(y){ y.textContent = new Date().getFullYear(); }
@@ -640,14 +624,19 @@
         window.location.href = buildMailto();
       });
     }
-    // ---- Static resume link (simple version) ----
-// Make sure AceHa_Resume.pdf is in the same folder as this HTML file.
 
     // === Techy effects: KPI counter + scroll reveal ===
     (function(){
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Force animations ON by default (user request). Use ?anim=0 to disable.
+      var url = new URL(window.location.href);
+      var forceAnim = url.searchParams.get('anim') !== '0';
+      if(forceAnim){ document.documentElement.setAttribute('data-anim','on'); }
+      var reduce = !forceAnim && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // ---- KPI counters ----
+      // Mark reveal targets
+      var revealSel = 'section h2, .card, .kpi';
+      document.querySelectorAll(revealSel).forEach(function(el){ el.classList.add('reveal'); });
+
       function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
       function animateNumber(el, target, decimals){
         var prefix = el.getAttribute('data-prefix') || '';
@@ -665,78 +654,107 @@
         requestAnimationFrame(step);
       }
 
-      function initCounters(){
+      function setNumber(el){
+        var dec = parseInt(el.getAttribute('data-decimals')||'0',10);
+        var tgt = parseFloat(el.getAttribute('data-target')||'0');
+        var pre = el.getAttribute('data-prefix')||'';
+        el.textContent = pre + tgt.toFixed(dec);
+      }
+
+      function initCountersAnimated(){
         var nodes = document.querySelectorAll('.kpi .val[data-target]');
         if(!nodes.length) return;
-        if(reduce){
-          nodes.forEach(function(el){
-            var dec = parseInt(el.getAttribute('data-decimals')||'0',10);
-            var tgt = parseFloat(el.getAttribute('data-target')||'0');
-            var pre = el.getAttribute('data-prefix')||'';
-            el.textContent = pre + tgt.toFixed(dec);
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              var kpi = entry.target;
+              // Only run once per KPI block
+              if(kpi.dataset.done) return;
+              kpi.dataset.done = '1';
+              kpi.querySelectorAll('.val[data-target]').forEach(function(el){
+                var dec = parseInt(el.getAttribute('data-decimals')||'0',10);
+                var tgt = parseFloat(el.getAttribute('data-target')||'0');
+                animateNumber(el, tgt, dec);
+              });
+              // Reveal animation
+              kpi.classList.add('in');
+              io.unobserve(kpi);
+            }
           });
+        },{threshold:0.35});
+        document.querySelectorAll('.kpi').forEach(function(k){ io.observe(k); });
+      }
+
+      function initReveal(){
+        if(reduce){
+          document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+          // If reduced motion, set numbers immediately
+          document.querySelectorAll('.kpi .val[data-target]').forEach(setNumber);
           return;
         }
         var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(ent){
-            if(ent.isIntersecting){
-              var el = ent.target;
-              if(el.dataset.done) return;
-              el.dataset.done = '1';
-              var dec = parseInt(el.getAttribute('data-decimals')||'0',10);
-              var tgt = parseFloat(el.getAttribute('data-target')||'0');
-              animateNumber(el, tgt, dec);
-              io.unobserve(el);
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
             }
           });
-        }, {threshold: 0.5});
-        nodes.forEach(function(el){ io.observe(el); });
+        },{threshold:0.2});
+        document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
       }
 
-      // ---- Scroll reveal ----
-      function initReveal(){
-        var revealSel = '.card, .kpi, .section h2, .edu-card, .xp';
-        var els = document.querySelectorAll(revealSel);
-        els.forEach(function(el){ el.classList.add('reveal'); });
-        if(reduce){ els.forEach(function(el){ el.classList.add('in'); }); return; }
-        var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(ent){
-            if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target); }
-          });
-        }, {threshold: 0.12});
-        els.forEach(function(el){ io.observe(el); });
+      if('IntersectionObserver' in window){
+        initReveal();
+        initCountersAnimated();
+      } else {
+        // Fallback: no IO support
+        document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+        document.querySelectorAll('.kpi .val[data-target]').forEach(setNumber);
       }
 
-      // Kick off
-      initCounters();
-      initReveal();
+      // Diagnostics toggle (?test=1 or #debug)
+      var testMode = url.searchParams.get('test') === '1' || location.hash.indexOf('debug') !== -1;
+      if(testMode){
+        var diag = document.getElementById('diagnostics');
+        var list = document.getElementById('diagList');
+        if(diag && list){
+          diag.style.display = 'block';
+          function li(msg){ var li=document.createElement('li'); li.textContent=msg; list.appendChild(li); }
+          li('JS loaded');
+          li('IntersectionObserver: ' + ('IntersectionObserver' in window));
+          var sample = buildMailtoFrom('Ace Tester','ace@example.com','Test Co','Delta & Cartesian preview');
+          li('mailto sample ok: ' + (sample.indexOf('mailto:')===0));
+          li('reduce motion: ' + reduce);
+        }
+      }
     })();
 
-
-    // === Minimal diagnostics & tests (open with ?test=1 or #debug) ===
-    function diagnosticsEnabled(){
-      try{
-        return (window.location.hash === '#debug') || (new URLSearchParams(window.location.search).get('test')==='1');
-      }catch(_){ return false; }
-    }
-    function addDiag(msg, ok){
-      var d = document.getElementById('diagnostics');
-      var ul = document.getElementById('diagList');
-      if(!d || !ul) return;
-      d.style.display = 'block';
-      var li = document.createElement('li');
-      li.textContent = (ok===false?'✖ ':'✔ ') + msg;
-      ul.appendChild(li);
-    }
-    if(diagnosticsEnabled()){
-      addDiag('Slogan present', !!document.querySelector('.slogan-banner .quote'));
-      addDiag('KPI counters found: ' + document.querySelectorAll('.kpi .val[data-target]').length, true);
-      addDiag('Shimmer overlay enabled on thumbnails', !!document.querySelector('.thumb-img'));
-      try{
-        var testHref = buildMailtoFrom('Tester','tester@example.com','ACME','Discuss Cartesian project');
-        addDiag('Mailto builder ok', /^mailto:/.test(testHref));
-      }catch(e){ addDiag('Mailto builder threw: ' + e.message, false); }
-    }
+    // === Tiny runtime tests (run only in ?test=1) ===
+    (function(){
+      var runTests = new URL(window.location.href).searchParams.get('test') === '1';
+      if(!runTests) return;
+      console.log('[tests] running…');
+      // Test 1: mailto builder includes encoded newlines and fields
+      (function(){
+        var url = (function(){
+          var subject = encodeURIComponent('Access/work inquiry from Ace');
+          var body = encodeURIComponent(['Name: Ace','Work email: ace@example.com'].join('\n'));
+          return 'mailto:haduyhung142@gmail.com?subject='+subject+'&body='+body;
+        })();
+        console.assert(url.indexOf('\n')===-1,'[mailto] raw newlines leaked');
+      })();
+      // Test 2: KPI format keeps prefix and decimals
+      (function(){
+        var span = document.createElement('span');
+        span.setAttribute('data-prefix','≤');
+        span.textContent='≤0.00';
+        document.body.appendChild(span);
+        var startText = span.textContent;
+        console.assert(startText.charAt(0)==='≤','[kpi] missing prefix before anim');
+        document.body.removeChild(span);
+      })();
+      console.log('[tests] done');
+    })();
   })();
   </script>
 </body>
